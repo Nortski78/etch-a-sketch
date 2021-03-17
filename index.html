@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Redressed&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div id="wrapper">
+            <div id="top-content">
+                <div id="page-title"><h1>Etch-a-Sketch</h1></div>
+                <div id="size-button">
+                    <button id="btn-size">Change Size</button>
+                </div>
+            </div>
+            <div id="main-content">
+                <div id="sketch-container"></div>
+            </div>
+        </div>
+    </main>
+</body>
+
+<script>
+
+    // Javascript   
+
+    // Set the initial size of the sketch pad
+    drawGrid(8);
+  
+    // Add an event listener to the button
+    const sizeButton = document.querySelector('#btn-size');
+    sizeButton.addEventListener('click', getUserNumBoxes);
+
+    
+    // Prompt user for the new size of the sketch pad
+    function getUserNumBoxes() {
+        
+        numBoxes = prompt('Enter new size:');
+
+        if(numBoxes > 0 && numBoxes <= 100 && (typeof numBoxes != NaN) && numBoxes != null){
+            drawGrid(numBoxes);
+        }
+        else {
+            alert('Please enter a size between 1 and 100');
+            getUserNumBoxes();
+        }
+
+      
+    }
+
+    // Draw the sketch pad after removing any previously created child divs
+    function drawGrid(size){
+
+        let numBoxes = size;
+        let width = 'calc(100% / ' + numBoxes + ')';
+
+        const container = document.querySelector('#sketch-container');
+        container.innerHTML = '';
+        //const div = document.createElement('div');
+        //div.classList.add('sketch-element');
+        //div.style.width = width;
+
+        for (let i = 1; i <= numBoxes * numBoxes; i++) {
+            //container.appendChild(div.cloneNode(true));
+            const div = document.createElement('div');
+            div.classList = ('sketch-element');
+            div.style.width = width;
+            container.appendChild(div);
+            div.addEventListener('mouseover', function(){
+                //div.classList.add('bg-change');
+                const randomR = Math.floor(Math.random() * 256);
+                const randomG = Math.floor(Math.random() * 256);
+                const randomB = Math.floor(Math.random() * 256);
+                event.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
+            });
+        }
+
+        //addEventListners();
+    }
+
+     // Add event listeners to each element
+     function changeBackground(){
+
+        const gridElement = document.querySelector('sketch-element');
+        console.log(gridElement);
+
+        gridElement.addEventListener('mouseover', function(event) {
+            //classList.add('.bg-change');
+            
+        });
+     }
+        
+
+</script>
+
+</html>
